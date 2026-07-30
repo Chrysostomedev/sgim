@@ -71,24 +71,24 @@ export function PasswordInput({ name, placeholder, required, disabled, defaultVa
 
 // ── Select custom orange/blanc + search auto ─────────────────────────────────
 
-export function Select({ 
-    name, 
-    required, 
-    disabled, 
-    value, 
-    defaultValue, 
-    onChange, 
-    icon, 
+export function Select({
+    name,
+    required,
+    disabled,
+    value,
+    defaultValue,
+    onChange,
+    icon,
     children,
     placeholder = "Sélectionner..."
 }: {
-    name: string; 
-    required?: boolean; 
+    name: string;
+    required?: boolean;
     disabled?: boolean;
-    value?: string; 
+    value?: string;
     defaultValue?: string;
     onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-    icon?: React.ReactNode; 
+    icon?: React.ReactNode;
     children: React.ReactNode;
     placeholder?: string;
 }) {
@@ -98,7 +98,6 @@ export function Select({
     const [selectedLabel, setSelectedLabel] = useState("");
     const wrapperRef = useRef<HTMLDivElement>(null);
 
-    // Extraire les options depuis children
     const options = useMemo(() => {
         const opts: { value: string; label: string }[] = [];
         React.Children.forEach(children, (child: any) => {
@@ -112,13 +111,11 @@ export function Select({
         return opts;
     }, [children]);
 
-    // Set le label initial
     useEffect(() => {
         const opt = options.find(o => o.value === selectedValue);
         setSelectedLabel(opt?.label?? placeholder);
     }, [selectedValue, options, placeholder]);
 
-    // Fermer au clic dehors
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
             if (wrapperRef.current &&!wrapperRef.current.contains(e.target as Node)) {
@@ -139,8 +136,6 @@ export function Select({
         setSelectedLabel(label);
         setOpen(false);
         setSearch("");
-        
-        // Simule l'event pour rester compatible avec ReusableForm
         if (onChange) {
             const fakeEvent = {
                 target: { name, value: val }
@@ -153,56 +148,51 @@ export function Select({
 
     return (
         <div ref={wrapperRef} className="relative">
-            {/* Input hidden pour le form */}
             <input type="hidden" name={name} value={selectedValue} required={required} />
-            
-            {/* Trigger */}
+
             <button
                 type="button"
                 onClick={() =>!disabled && setOpen(!open)}
                 disabled={disabled}
                 className={`${inputCls} ${icon? "pl-10" : ""} pr-10 text-left flex items-center justify-between ${
-                    disabled? "cursor-not-allowed" : "cursor-pointer hover:border-[#f97316]"
-                } ${open? "ring-2 ring-[#f97316]/20 border-[#f97316]" : ""}`}
+                    disabled? "cursor-not-allowed" : "cursor-pointer hover:border-[#0FB5B1]"
+                } ${open? "ring-2 ring-[#0FB5B1]/20 border-[#0FB5B1]" : ""}`}
             >
                 {icon && (
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8ecfcf] pointer-events-none">
                         {icon}
                     </span>
                 )}
-                <span className={`truncate ${!selectedValue? "text-slate-400" : "text-slate-900"}`}>
+                <span className={`truncate ${!selectedValue? "text-[#8ecfcf]" : "text-[#0f2e2d]"}`}>
                     {selectedLabel}
                 </span>
-                <ChevronDown 
-                    size={16} 
-                    className={`absolute right-3 text-slate-400 transition-transform ${open? "rotate-180" : ""}`} 
+                <ChevronDown
+                    size={16}
+                    className={`absolute right-3 text-[#8ecfcf] transition-transform ${open? "rotate-180" : ""}`}
                 />
             </button>
 
-            {/* Dropdown */}
             {open && (
-                <div className="absolute z-50 w-full mt-1.5 bg-white rounded-xl border border-slate-200 shadow-lg shadow-slate-200/50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150">
-                    {/* Search si > 6 items */}
+                <div className="absolute z-50 w-full mt-1.5 bg-white rounded-xl border border-[#c9efed] shadow-lg shadow-[#0FB5B1]/10 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150">
                     {showSearch && (
-                        <div className="p-2 border-b border-slate-100 bg-slate-50/50">
+                        <div className="p-2 border-b border-[#f0fbfb] bg-[#f0fbfb]/50">
                             <div className="relative">
-                                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8ecfcf]" />
                                 <input
                                     type="text"
                                     value={search}
                                     onChange={(e) => setSearch(e.target.value)}
                                     placeholder="Rechercher..."
-                                    className="w-full pl-9 pr-3 py-2 text-[13px] bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f97316]/20 focus:border-[#f97316]"
+                                    className="w-full pl-9 pr-3 py-2 text- bg-white border border-[#c9efed] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0FB5B1]/20 focus:border-[#0FB5B1]"
                                     onClick={(e) => e.stopPropagation()}
                                 />
                             </div>
                         </div>
                     )}
 
-                    {/* Options */}
                     <div className="max-h-60 overflow-y-auto py-1">
                         {filteredOptions.length === 0? (
-                            <div className="px-3 py-8 text-center text-[12px] text-slate-400 italic">
+                            <div className="px-3 py-8 text-center text- text-[#8ecfcf] italic">
                                 Aucun résultat
                             </div>
                         ) : (
@@ -213,10 +203,10 @@ export function Select({
                                         key={opt.value}
                                         type="button"
                                         onClick={() => handleSelect(opt.value, opt.label)}
-                                        className={`w-full px-3 py-2.5 text-left text-[13px] font-medium transition-colors flex items-center justify-between gap-2 ${
+                                        className={`w-full px-3 py-2.5 text-left text- font-medium transition-colors flex items-center justify-between gap-2 ${
                                             isSelected
-                                               ? "bg-[#f97316] text-white"
-                                                : "text-slate-700 hover:bg-orange-50 hover:text-[#f97316]"
+                                              ? "bg-[#0FB5B1] text-white"
+                                                : "text-[#0f2e2d] hover:bg-[#f0fbfb] hover:text-[#0e7c7a]"
                                         }`}
                                     >
                                         <span className="truncate">{opt.label}</span>

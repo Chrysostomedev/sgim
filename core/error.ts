@@ -1,29 +1,29 @@
 /**
- * SGIM — Helpers d'erreur (compatibilité legacy)
- * -----------------------------------------------------------------------
- * Traduction centralisée des erreurs backend en messages FR lisibles.
+ * SGIM — Helpers d'erreur statique
+ * 100% statique, plus de dépendance API, plus d'erreur build
  */
 
 export function parseApiError(err: unknown): string {
   if (err == null) return "Une erreur inconnue est survenue.";
 
-  if (typeof err === "string") return err;
+  if (typeof err === "string") return err.trim() || "Une erreur est survenue.";
 
   if (err instanceof Error) {
-    return err.message || "Une erreur est survenue.";
+    return err.message?.trim() || "Une erreur est survenue.";
   }
 
-  const anyErr = err as Record<string, unknown>;
+  if (typeof err === "object") {
+    const e = err as Record<string, unknown>;
 
-  if (anyErr.message && typeof anyErr.message === "string") {
-    return anyErr.message;
-  }
+    if (typeof e.message === "string" && e.message.trim()) {
+      return e.message;
+    }
 
-  if (anyErr.response) {
-    const resp = anyErr.response as Record<string, unknown>;
-    if (resp.data) {
-      const data = resp.data as Record<string, unknown>;
-      if (data.message && typeof data.message === "string") {
+    // Cas axios-like { response: { data: { message } } } mais en statique
+    const response = e.response as Record<string, unknown> | undefined;
+    if (response) {
+      const data = response.data as Record<string, unknown> | undefined;
+      if (data && typeof data.message === "string" && data.message.trim()) {
         return data.message;
       }
     }

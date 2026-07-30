@@ -83,6 +83,11 @@ const NAV_ITEMS: NavItem[] = [
     icon: LayoutDashboard,
     href: "/admin/dashboard",
   },
+    {
+    label: "Rapports & Statistiques",
+    icon: BarChart3,
+    href: "/admin/rapports",
+  },
   { 
     label: "Nouvelle Alerte",
     icon: AlertTriangle,
@@ -93,11 +98,11 @@ const NAV_ITEMS: NavItem[] = [
     icon: ClipboardList,
     href: "/admin/incidents",
     submenu: [
-      { label: "Tous les incidents", href: "/incidents" },
-      { label: "MAYDAY / PAN PAN", href: "/incidents/detresse" },
-      { label: "Homme à la mer", href: "/incidents/homme-a-la-mer" },
-      { label: "Pollution", href: "/incidents/pollution" },
-      { label: "Piraterie", href: "/incidents/piraterie" },
+      { label: "Tous les incidents", href: "/admin/incidents" },
+      { label: "MAYDAY / PAN PAN", href: "/admin/incidents/detresse" },
+      { label: "Homme à la mer", href: "/admin/incidents/homme-a-la-mer" },
+      { label: "Pollution", href: "/admin/incidents/pollution" },
+      { label: "Piraterie", href: "/admin/incidents/piraterie" },
     ],
   },
   {
@@ -123,7 +128,7 @@ const NAV_ITEMS: NavItem[] = [
   {
     label: "Partenaires",
     icon: Handshake,
-    href: "/partenaires",
+    href: "/admin/partenaires",
   },
   {
     label: "Carte SIG",
@@ -140,11 +145,7 @@ const NAV_ITEMS: NavItem[] = [
     icon: FileText,
     href: "/admin/journal",
   },
-  {
-    label: "Rapports & Statistiques",
-    icon: BarChart3,
-    href: "/admin/rapports",
-  },
+
   {
     label: "Administration",
     icon: Users,

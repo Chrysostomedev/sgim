@@ -12,15 +12,15 @@ interface Planning {
 }
 
 const STATUS_COLORS: Record<PlanningStatus, string> = {
-  PLANIFIÉ: "#f97316",
-  EN_COURS: "#ea580c",
-  EN_RETARD: "#dc2626",
-  RÉALISÉ: "#16a34a",
+  PLANIFIÉ: "#0FB5B1",
+  EN_COURS: "#0e8a87",
+  EN_RETARD: "#F25C5C",
+  RÉALISÉ: "#10b981",
 };
 
 const STATUS_BG: Record<PlanningStatus, string> = {
-  PLANIFIÉ: "#ffedd5",
-  EN_COURS: "#fed7aa",
+  PLANIFIÉ: "#e0f7f6",
+  EN_COURS: "#b2e8e5",
   EN_RETARD: "#fee2e2",
   RÉALISÉ: "#dcfce7",
 };
@@ -42,23 +42,23 @@ export default function EventLegend({ search = "", plannings }: EventLegendProps
   today.setHours(0, 0, 0, 0);
 
   const upcomingPlannings = plannings
-  .filter((p) => {
+   .filter((p) => {
       const debut = new Date(p.date_debut);
       debut.setHours(0, 0, 0, 0);
       const isUpcoming = debut >= today;
       const matchSearch =
-      !search ||
+       !search ||
         p.codification.toLowerCase().includes(search.toLowerCase()) ||
         p.responsable_name.toLowerCase().includes(search.toLowerCase()) ||
         (p.site?.nom?? "").toLowerCase().includes(search.toLowerCase());
       return isUpcoming && matchSearch;
     })
-  .slice(0, 5);
+   .slice(0, 5);
 
   return (
-    <div className="space-y-8 bg-orange-50 p-6 rounded-2xl border border-orange-100">
+    <div className="space-y-8 bg-[#f0fbfb] p-6 rounded-2xl border border-[#c9efed]">
       <div className="space-y-4">
-        <h3 className="text-sm font-bold text-orange-600 uppercase tracking-widest">Légende</h3>
+        <h3 className="text-sm font-bold text-[#0e7c7a] uppercase tracking-widest">Légende</h3>
         <div className="grid grid-cols-2 gap-2">
           {LEGEND_ITEMS.map((item) => (
             <div
@@ -67,28 +67,28 @@ export default function EventLegend({ search = "", plannings }: EventLegendProps
               className="flex items-center gap-2 px-3 py-2 rounded-lg"
             >
               <div className="w-2 h-2 rounded-full" style={{ backgroundColor: item.color }} />
-              <span className="text-[11px] font-bold text-orange-900">{item.label}</span>
+              <span className="text- font-bold text-[#0f2e2d]">{item.label}</span>
             </div>
           ))}
         </div>
       </div>
 
       <div className="space-y-4">
-        <h3 className="text-sm font-bold text-orange-600 uppercase tracking-widest">Événements à venir</h3>
+        <h3 className="text-sm font-bold text-[#0e7c7a] uppercase tracking-widest">Événements à venir</h3>
 
         {upcomingPlannings.length === 0? (
-          <p className="text-[13px] text-orange-400 italic">Aucun événement à venir.</p>
+          <p className="text- text-[#7bcac7] italic">Aucun événement à venir.</p>
         ) : (
           <div className="space-y-4">
             {upcomingPlannings.map((planning) => {
-              const color = STATUS_COLORS[planning.status]?? "#f97316";
+              const color = STATUS_COLORS[planning.status]?? "#0FB5B1";
               const [year, month, day] = planning.date_debut.split("T")[0].split("-");
               const dateLabel = `${day}/${month}`;
 
               return (
                 <div
                   key={planning.id}
-                  className="flex items-center justify-between text-[13px]"
+                  className="flex items-center justify-between text-"
                 >
                   <div className="flex items-center gap-3">
                     <div
@@ -96,17 +96,17 @@ export default function EventLegend({ search = "", plannings }: EventLegendProps
                       style={{ backgroundColor: color }}
                     />
                     <div className="flex flex-col">
-                      <span className="font-semibold text-orange-900 leading-tight line-clamp-1">
+                      <span className="font-semibold text-[#0f2e2d] leading-tight line-clamp-1">
                         {planning.codification}
                       </span>
                       {planning.site?.nom && (
-                        <span className="text-orange-600 text-[11px]">
+                        <span className="text-[#5fb8b5] text-">
                           {planning.site.nom}
                         </span>
                       )}
                     </div>
                   </div>
-                  <span className="text-orange-500 font-medium flex-shrink-0 ml-2">{dateLabel}</span>
+                  <span className="text-[#0FB5B1] font-medium flex-shrink-0 ml-2">{dateLabel}</span>
                 </div>
               );
             })}

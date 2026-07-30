@@ -2,7 +2,7 @@
 
 // ============================================================
 // components/MiniCalendar.tsx
-// Version 100% mockée, thème orange-500, zéro dépendance API
+// Version 100% mockée, thème turquoise, zéro dépendance API
 // Affiche des points colorés sur les jours avec des plannings
 // ============================================================
 
@@ -20,10 +20,10 @@ interface Planning {
 }
 
 const STATUS_COLORS: Record<PlanningStatus, string> = {
-  PLANIFIÉ: "#f97316", // orange-500
-  EN_COURS: "#ea580c", // orange-600
-  EN_RETARD: "#dc2626", // red-600 pour garder l’alerte visuelle
-  RÉALISÉ: "#16a34a", // green-600 pour le succès
+  PLANIFIÉ: "#0FB5B1",
+  EN_COURS: "#0e8a87",
+  EN_RETARD: "#F25C5C",
+  RÉALISÉ: "#10b981",
 };
 
 const isPlanningOnDate = (planning: Planning, date: Date): boolean => {
@@ -84,7 +84,7 @@ export default function MiniCalendar({ activeMonth, onMonthChange, plannings }: 
   const goToNext = () => onMonthChange(new Date(year, month + 1, 1));
 
   return (
-    <div className="bg-orange-50 p-4 w-full rounded-[24px] shadow-sm border border-orange-100 relative">
+    <div className="bg-[#f0fbfb] p-4 w-full rounded- shadow-sm border border-[#c9efed] relative">
 
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
@@ -94,22 +94,22 @@ export default function MiniCalendar({ activeMonth, onMonthChange, plannings }: 
           <div className="relative" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => { setIsMonthOpen(!isMonthOpen); setIsYearOpen(false); }}
-              className="flex items-center gap-2 bg-orange-100 hover:bg-orange-200 border border-orange-200 px-3 py-1.5 rounded-xl transition-all font-bold text-[14px] text-orange-900"
+              className="flex items-center gap-2 bg-[#e0f7f6] hover:bg-[#ccf0ef] border border-[#b2e8e5] px-3 py-1.5 rounded-xl transition-all font-bold text- text-[#0f2e2d]"
             >
               {months[month]}
               <ChevronDown size={14} className={`transition-transform ${isMonthOpen? "rotate-180" : ""}`} />
             </button>
             {isMonthOpen && (
-              <div className="absolute top-full left-0 mt-2 w-40 bg-orange-50 border border-orange-200 shadow-xl rounded-2xl z-50 overflow-hidden animate-in fade-in zoom-in duration-200">
-                <div className="max-h-[250px] overflow-y-auto p-1 custom-scrollbar">
+              <div className="absolute top-full left-0 mt-2 w-40 bg-white border border-[#c9efed] shadow-xl rounded-2xl z-50 overflow-hidden animate-in fade-in zoom-in duration-200">
+                <div className="max-h- overflow-y-auto p-1 custom-scrollbar">
                   {months.map((m, i) => (
                     <button
                       key={m}
                       onClick={() => { onMonthChange(new Date(year, i, 1)); setIsMonthOpen(false); }}
-                      className="w-full flex items-center justify-between px-3 py-2 text-[13px] hover:bg-orange-100 rounded-lg transition-colors"
+                      className="w-full flex items-center justify-between px-3 py-2 text- hover:bg-[#f0fbfb] rounded-lg transition-colors"
                     >
-                      <span className={month === i? "font-bold text-orange-900" : "text-orange-700"}>{m}</span>
-                      {month === i && <Check size={14} className="text-orange-600" />}
+                      <span className={month === i? "font-bold text-[#0f2e2d]" : "text-[#5fb8b5]"}>{m}</span>
+                      {month === i && <Check size={14} className="text-[#0FB5B1]" />}
                     </button>
                   ))}
                 </div>
@@ -121,22 +121,22 @@ export default function MiniCalendar({ activeMonth, onMonthChange, plannings }: 
           <div className="relative" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => { setIsYearOpen(!isYearOpen); setIsMonthOpen(false); }}
-              className="flex items-center gap-2 bg-orange-100 hover:bg-orange-200 border border-orange-200 px-3 py-1.5 rounded-xl transition-all font-bold text-[14px] text-orange-900"
+              className="flex items-center gap-2 bg-[#e0f7f6] hover:bg-[#ccf0ef] border border-[#b2e8e5] px-3 py-1.5 rounded-xl transition-all font-bold text- text-[#0f2e2d]"
             >
               {year}
               <ChevronDown size={14} className={`transition-transform ${isYearOpen? "rotate-180" : ""}`} />
             </button>
             {isYearOpen && (
-              <div className="absolute top-full left-0 mt-2 w-28 bg-orange-50 border border-orange-200 shadow-xl rounded-2xl z-50 overflow-hidden animate-in fade-in zoom-in duration-200">
-                <div className="max-h-[200px] overflow-y-auto p-1 custom-scrollbar">
+              <div className="absolute top-full left-0 mt-2 w-28 bg-white border border-[#c9efed] shadow-xl rounded-2xl z-50 overflow-hidden animate-in fade-in zoom-in duration-200">
+                <div className="max-h- overflow-y-auto p-1 custom-scrollbar">
                   {Array.from({ length: 10 }, (_, i) => 2022 + i).map((y) => (
                     <button
                       key={y}
                       onClick={() => { onMonthChange(new Date(y, month, 1)); setIsYearOpen(false); }}
-                      className="w-full flex items-center justify-between px-3 py-2 text-[13px] hover:bg-orange-100 rounded-lg transition-colors"
+                      className="w-full flex items-center justify-between px-3 py-2 text- hover:bg-[#f0fbfb] rounded-lg transition-colors"
                     >
-                      <span className={year === y? "font-bold text-orange-900" : "text-orange-700"}>{y}</span>
-                      {year === y && <Check size={14} className="text-orange-600" />}
+                      <span className={year === y? "font-bold text-[#0f2e2d]" : "text-[#5fb8b5]"}>{y}</span>
+                      {year === y && <Check size={14} className="text-[#0FB5B1]" />}
                     </button>
                   ))}
                 </div>
@@ -147,10 +147,10 @@ export default function MiniCalendar({ activeMonth, onMonthChange, plannings }: 
 
         {/* Arrows */}
         <div className="flex gap-1">
-          <button onClick={goToPrev} className="p-2 hover:bg-orange-100 rounded-lg text-orange-500 hover:text-orange-700 transition-all">
+          <button onClick={goToPrev} className="p-2 hover:bg-[#e0f7f6] rounded-lg text-[#5fb8b5] hover:text-[#0e7c7a] transition-all">
             <ChevronLeft size={18} />
           </button>
-          <button onClick={goToNext} className="p-2 hover:bg-orange-100 rounded-lg text-orange-500 hover:text-orange-700 transition-all">
+          <button onClick={goToNext} className="p-2 hover:bg-[#e0f7f6] rounded-lg text-[#5fb8b5] hover:text-[#0e7c7a] transition-all">
             <ChevronRight size={18} />
           </button>
         </div>
@@ -159,7 +159,7 @@ export default function MiniCalendar({ activeMonth, onMonthChange, plannings }: 
       {/* Grille */}
       <div className="grid grid-cols-7 w-full text-center">
         {days.map((d) => (
-          <div key={d} className="text-[10px] font-bold text-orange-500 mb-4 tracking-widest">{d}</div>
+          <div key={d} className="text- font-bold text-[#0FB5B1] mb-4 tracking-widest">{d}</div>
         ))}
         {calendarDays.map((dateObj, i) => {
           const todayHighlight = dateObj.currentMonth && isToday(dateObj.day, month, year);
@@ -173,9 +173,9 @@ export default function MiniCalendar({ activeMonth, onMonthChange, plannings }: 
                     onMonthChange(new Date(year, month, dateObj.day));
                   }
                 }}
-                className={`w-full h-full max-w-[32px] max-h-[32px] text-[12px] flex items-center justify-center rounded-xl transition-all
-                  ${!dateObj.currentMonth? "text-orange-200 cursor-default" : "text-orange-700 font-semibold hover:bg-orange-100 hover:text-orange-900"}
-                  ${todayHighlight? "bg-orange-600 text-white shadow-lg hover:bg-orange-700" : ""}
+                className={`w-full h-full max-w- max-h- text- flex items-center justify-center rounded-xl transition-all
+                  ${!dateObj.currentMonth? "text-[#b2e8e5] cursor-default" : "text-[#0f2e2d] font-semibold hover:bg-[#e0f7f6] hover:text-[#0e7c7a]"}
+                  ${todayHighlight? "bg-[#0FB5B1] text-white shadow-lg hover:bg-[#0da8a4]" : ""}
                 `}
               >
                 {dateObj.day}
@@ -187,7 +187,7 @@ export default function MiniCalendar({ activeMonth, onMonthChange, plannings }: 
                     <div
                       key={idx}
                       className="w-1 h-1 rounded-full"
-                      style={{ backgroundColor: STATUS_COLORS[p.status]?? "#f97316" }}
+                      style={{ backgroundColor: STATUS_COLORS[p.status]?? "#0FB5B1" }}
                     />
                   ))}
                 </div>
@@ -198,9 +198,9 @@ export default function MiniCalendar({ activeMonth, onMonthChange, plannings }: 
       </div>
 
       <style jsx>{`
-       .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-       .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-       .custom-scrollbar::-webkit-scrollbar-thumb { background: #fed7aa; border-radius: 10px; }
+      .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+      .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+      .custom-scrollbar::-webkit-scrollbar-thumb { background: #b2e8e5; border-radius: 10px; }
       `}</style>
     </div>
   );

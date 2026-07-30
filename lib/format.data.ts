@@ -1,45 +1,28 @@
 /**
- * SGIM — Helpers de formatage de données (compatibilité legacy)
- * -----------------------------------------------------------------------
- * Fonctions utilitaires référencées par les composants hérités via
- * `@/lib/format.data`.
+ * SGIM — Formatage dates statique
+ * 100% local, pas d'import lib/, pas d'API
  */
 
-export function formatDateShort(date?: string | null): string {
-  if (!date) return "—";
-  const d = new Date(date);
-  if (isNaN(d.getTime())) return "—";
-  return d.toLocaleDateString("fr-FR", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
+export function formatDateFR(iso: string | Date | undefined | null): string {
+  if (!iso) return "";
+  const d = iso instanceof Date ? iso : new Date(iso);
+  if (isNaN(d.getTime())) return String(iso);
+  return d.toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" });
 }
 
-export function formatDate(date?: string | null): string {
-  if (!date) return "—";
-  const d = new Date(date);
-  if (isNaN(d.getTime())) return "—";
-  return d.toLocaleDateString("fr-FR", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
+export function formatDateShort(iso: string | Date | undefined | null): string {
+  if (!iso) return "";
+  const d = iso instanceof Date ? iso : new Date(iso);
+  if (isNaN(d.getTime())) return String(iso);
+  return d.toLocaleDateString("fr-FR", { day: "2-digit", month: "short" });
 }
 
-export function formatCurrency(value?: number | string | null): string {
-  if (value == null || value === "") return "—";
-  const n = Number(value);
-  if (isNaN(n)) return "—";
-  return new Intl.NumberFormat("fr-FR", {
-    style: "currency",
-    currency: "XOF",
-    maximumFractionDigits: 0,
-  }).format(n);
+export function formatDatetime(iso: string | Date | undefined | null): string {
+  if (!iso) return "";
+  const d = iso instanceof Date ? iso : new Date(iso);
+  if (isNaN(d.getTime())) return String(iso);
+  return d.toLocaleString("fr-FR", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
 }
 
-export default {
-  formatDateShort,
-  formatDate,
-  formatCurrency,
-};
+// alias au cas où ton code appelle formatDateTime avec majuscule
+export const formatDateTime = formatDatetime;

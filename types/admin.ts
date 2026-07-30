@@ -15,6 +15,21 @@ export interface Coordinator {
   last_name: string;
 }
 
+export interface ProjectStatus {
+  id: number;
+  code: string;
+  name: string;
+}
+
+export interface ProjectStatusPayload {
+  name: string;
+  code: string;
+  color: string;
+  project_id: number;
+  target_status_id: number;
+  position_type?: "before" | "after";
+}
+
 export interface Project {
   id: number;
   title: string;

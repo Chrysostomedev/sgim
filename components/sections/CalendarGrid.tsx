@@ -2,7 +2,7 @@
 
 // ============================================================
 // components/CalendarGrid.tsx
-// Version mockée + thème orange-500. Zéro dépendance API.
+// Version mockée + thème turquoise. Zéro dépendance API.
 // Reçoit les plannings via props depuis MainCard
 // ============================================================
 
@@ -22,12 +22,12 @@ export interface Planning {
   provider?: { id: number; company_name?: string; user?: { first_name: string; last_name: string } };
 }
 
-// Constantes thème orange pour remplacer STATUS_COLORS du service
+// Constantes thème turquoise
 const STATUS_COLORS: Record<PlanningStatus, string> = {
-  PLANIFIÉ: "bg-orange-100 text-orange-700 border border-orange-200",
-  EN_COURS: "bg-orange-500 text-white",
-  EN_RETARD: "bg-red-500 text-white",
-  RÉALISÉ: "bg-green-500 text-white",
+  PLANIFIÉ: "bg-[#e0f7f6] text-[#0e7c7a] border border-[#b2e8e5]",
+  EN_COURS: "bg-[#0FB5B1] text-white",
+  EN_RETARD: "bg-[#F25C5C] text-white",
+  RÉALISÉ: "bg-[#10b981] text-white",
 };
 
 // Helper local pour éviter l'import du service
@@ -106,7 +106,7 @@ export default function CalendarGrid({
       id: p.id,
       label: p.codification,
       time: p.date_debut.split("T")[1]?.slice(0, 5)?? "-",
-      color: STATUS_COLORS[p.status]?? "#f97316", // orange-500 par défaut
+      color: STATUS_COLORS[p.status]?? "#0FB5B1", // turquoise par défaut
       status: p.status,
       planning: p,
     }));
@@ -115,21 +115,22 @@ export default function CalendarGrid({
   }
 
   // Toujours forcer 42 cases (6 lignes) → hauteur de grille
-// strictement identique quel que soit le mois affiché.
-const remaining = 42 - cells.length;
-for (let i = 1; i <= remaining; i++) {
-  cells.push({ day: i, currentMonth: false, events: [] });
-}
+  // strictement identique quel que soit le mois affiché.
+  const remaining = 42 - cells.length;
+  for (let i = 1; i <= remaining; i++) {
+    cells.push({ day: i, currentMonth: false, events: [] });
+  }
+
   const DAY_HEADERS = ["LUN", "MAR", "MER", "JEU", "VEN", "SAM", "DIM"];
 
   return (
     <div className="w-full">
-      {/* Headers - thème orange */}
-      <div className="grid grid-cols-7 border-b border-orange-100">
+      {/* Headers - thème turquoise */}
+      <div className="grid grid-cols-7 border-b border-[#c9efed]">
         {DAY_HEADERS.map((d) => (
           <div
             key={d}
-            className="text-[11px] font-black text-orange-600 tracking-widest text-center py-3"
+            className="text- font-black text-[#0FB5B1] tracking-widest text-center py-3"
           >
             {d}
           </div>
@@ -137,13 +138,13 @@ for (let i = 1; i <= remaining; i++) {
       </div>
 
       {/* Grille */}
-      <div className="grid grid-cols-7 border-l border-orange-100">
+      <div className="grid grid-cols-7 border-l border-[#c9efed]">
         {cells.map((cell, i) => {
           const cellDate = cell.currentMonth
-          ? new Date(year, month, cell.day)
+           ? new Date(year, month, cell.day)
             : cell.day > 20
-           ? new Date(year, month - 1, cell.day)
-            : new Date(year, month + 1, cell.day);
+             ? new Date(year, month - 1, cell.day)
+              : new Date(year, month + 1, cell.day);
 
           return (
             <DayCell
@@ -159,7 +160,7 @@ for (let i = 1; i <= remaining; i++) {
               }}
               onShowMore={
                 onShowMore
-                ? (evts, date) => {
+                 ? (evts, date) => {
                       onShowMore(
                         evts.map((e) => e.planning),
                         date
