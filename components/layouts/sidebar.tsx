@@ -97,70 +97,39 @@ const NAV_ITEMS: NavItem[] = [
     label: "Incidents",
     icon: ClipboardList,
     href: "/admin/incidents",
-    submenu: [
-      { label: "Tous les incidents", href: "/admin/incidents" },
-      { label: "MAYDAY / PAN PAN", href: "/admin/incidents/detresse" },
-      { label: "Homme à la mer", href: "/admin/incidents/homme-a-la-mer" },
-      { label: "Pollution", href: "/admin/incidents/pollution" },
-      { label: "Piraterie", href: "/admin/incidents/piraterie" },
-    ],
   },
+  
   {
-    label: "Opérations SAR",
-    icon: LifeBuoy,
-    href: "/admin/operations",
-  },  
-  {
-    label: "Navires",
-    icon: Ship,
-    href: "/admin/navires",
-  },
-  {
-    label: "Moyens de secours",
-    icon: Anchor,
-    href: "/moyens",
-    submenu: [
-      { label: "Moyens maritimes", href: "/admin/moyens/maritimes" },
-      { label: "Moyens aériens", href: "/admin/moyens/aeriens" },
-      { label: "Disponibilité", href: "/admin/moyens/disponibilite" },
-    ],
-  },
-  {
-    label: "Partenaires",
-    icon: Handshake,
-    href: "/admin/partenaires",
-  },
-  {
-    label: "Carte SIG",
+    label: "Carte",
     icon: Map,
     href: "/admin/carte",
   },
-  {
-    label: "Communications",
-    icon: Radio,
-    href: "/admin/communications",
-  },
-  {
-    label: "Journal des événements",
-    icon: FileText,
-    href: "/admin/journal",
-  },
+  // {
+  //   label: "Communications",
+  //   icon: Radio,
+  //   href: "/admin/communications",
+  // },
+  // {
+  //   label: "Journal des événements",
+  //   icon: FileText,
+  //   href: "/admin/journal",
+  // },
 
-  {
-    label: "Administration",
-    icon: Users,
-    href: "/admin",
-    submenu: [
-      { label: "Utilisateurs", href: "/admin/utilisateurs" },
-      { label: "Rôles & Permissions", href: "/admin/roles" },
-      { label: "Référentiels", href: "/admin/referentiels" },
-    ],
-  },
+  { label: "Utilisateurs",icon: Users, href: "/admin/utilisateurs" },
+  // {
+  //   label: "Administration",
+  //   icon: Users,
+  //   href: "/admin",
+  //   submenu: [
+  //     { label: "Rôles & Permissions", href: "/admin/roles" },
+  //     { label: "Référentiels", href: "/admin/referentiels" },
+  //   ],
+  // },
 ];
 
-const BOTTOM_ITEMS = [
-  { label: "Paramètres", icon: Settings, href: "/parametres" },
-];
+// const BOTTOM_ITEMS = [
+//   { label: "Paramètres", icon: Settings, href: "/parametres" },
+// ];
 
 // ── Logout modal (statique) ──────────────────────────────────────────────────
 function LogoutModal({
@@ -296,41 +265,18 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* Bottom */}
-      <div className="px-2 py-3 border-t border-white/10 space-y-0.5">
-        {BOTTOM_ITEMS.map((item) => {
-          const Icon = item.icon;
-          const active = isActive(item.href);
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setMobileOpen(false)}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-medium
-                ${active
-                  ? "bg-[#2790A8] text-white"
-                  : "text-white/70 hover:bg-white/10 hover:text-white"
-                }
-                ${collapsed ? "justify-center" : ""}`}
-              title={collapsed ? item.label : undefined}
-            >
-              <Icon size={18} className="shrink-0" />
-              {!collapsed && <span>{item.label}</span>}
-            </Link>
-          );
-        })}
-
-        <button
-          onClick={() => setShowLogout(true)}
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-medium text-white/70 hover:bg-red-500/20 hover:text-red-300 ${
-            collapsed ? "justify-center" : ""
-          }`}
-          title={collapsed ? "Se déconnecter" : undefined}
-        >
-          <LogOut size={18} className="shrink-0" />
-          {!collapsed && <span>Se déconnecter</span>}
-        </button>
-      </div>
+     <div className="px-2 py-3 border-t border-white/10 space-y-0.5">
+  <button
+    onClick={() => setShowLogout(true)}
+    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-medium text-white/70 hover:bg-red-500/20 hover:text-red-300 ${
+      collapsed ? "justify-center" : ""
+    }`}
+    title={collapsed ? "Se déconnecter" : undefined}
+  >
+    <LogOut size={18} className="shrink-0" />
+    {!collapsed && <span>Se déconnecter</span>}
+  </button>
+</div>
     </div>
   );
 
