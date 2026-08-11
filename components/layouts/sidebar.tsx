@@ -104,24 +104,25 @@ const NAV_ITEMS: NavItem[] = [
     icon: Map,
     href: "/admin/carte",
   },
-  // {
-  //   label: "Communications",
-  //   icon: Radio,
-  //   href: "/admin/communications",
-  // },
-  // {
-  //   label: "Journal des événements",
-  //   icon: FileText,
-  //   href: "/admin/journal",
-  // },
+  {
+    label: "Opérations",
+    icon: Radio,
+    href: "/admin/operations",
+  },
+  {
+    label: "Journal des événements",
+    icon: FileText,
+    href: "/admin/journal",
+  },
 
   { label: "Utilisateurs",icon: Users, href: "/admin/utilisateurs" },
+  { label: "Rôles & Permissions", icon: Users, href: "/admin/roles" },
   // {
   //   label: "Administration",
   //   icon: Users,
   //   href: "/admin",
   //   submenu: [
-  //     { label: "Rôles & Permissions", href: "/admin/roles" },
+
   //     { label: "Référentiels", href: "/admin/referentiels" },
   //   ],
   // },

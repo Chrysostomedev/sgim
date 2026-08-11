@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Bell, LogOut, Menu, AlertTriangle } from "lucide-react";
 import Link from "next/link";
 import { useSidebar } from "./sidebar";
+import NotificationPanel from "@/components/modals/NotificationPanel"; // ← ajout
 
 // ── Notification banner (statique) ───────────────────────────────────────────
 function InAppBanner({
@@ -214,6 +215,12 @@ export default function Navbar() {
           </div>
         </div>
       )}
+
+      {/* Notification Panel */}
+      <NotificationPanel
+        isOpen={notifPanelOpen}
+        onClose={() => setNotifPanelOpen(false)}
+      />
     </>
   );
 }
